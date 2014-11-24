@@ -1,0 +1,38 @@
+﻿[
+    {
+        "user_pic": "kaibiedetanke",
+        "user_nickname": "开贝塔的坦克",
+        "release_time": "1分钟前",
+        "content": "每天临睡觉前背单词！！",
+        "remind_time": "每天  6:00",
+        "fans_count": "643人关注",
+        "record_count": "1165条记录"
+    },
+    {
+        "user_pic": "sunjin",
+        "user_nickname": "孙锦",
+        "release_time": "1分钟前",
+        "content": "俞敏洪讲座",
+        "remind_time": "每天  6:00",
+        "fans_count": "643人关注",
+        "record_count": "1165条记录"
+    },
+    {
+        "user_pic": "annan",
+        "user_nickname": "安南",
+        "release_time": "1分钟前",
+        "content": "每天临睡觉前背单词",
+        "remind_time": "每天  6:00",
+        "fans_count": "643人关注",
+        "record_count": "1165条记录"
+    },
+    {
+        "user_pic": "ic_launcher",
+        "user_nickname": "周江南1",
+        "release_time": "1分钟前",
+        "content": "每天早上读书学习",
+        "remind_time": "每天  6:00",
+        "fans_count": "643人关注",
+        "record_count": "1165条记录"
+    }
+]
