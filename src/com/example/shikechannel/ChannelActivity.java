@@ -12,7 +12,6 @@ import java.util.Map;
 
 import org.json.JSONArray;
 
-
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnLastItemVisibleListener;
@@ -20,6 +19,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.format.DateUtils;
@@ -69,15 +69,15 @@ public class ChannelActivity extends Activity {
 					}
 				});
 		mPullRefreshListView
-		.setOnLastItemVisibleListener(new OnLastItemVisibleListener() {
+				.setOnLastItemVisibleListener(new OnLastItemVisibleListener() {
 
-			@Override
-			public void onLastItemVisible() {
-				// TODO Auto-generated method stub
-				Toast.makeText(ChannelActivity.this, "已经到最后了",
-						Toast.LENGTH_SHORT).show();
-			}
-		});
+					@Override
+					public void onLastItemVisible() {
+						// TODO Auto-generated method stub
+						Toast.makeText(ChannelActivity.this, "已经到最后了",
+								Toast.LENGTH_SHORT).show();
+					}
+				});
 		View headView = LayoutInflater.from(this).inflate(
 				R.layout.channel_themes, null);
 		listItems = getListItems();
@@ -85,10 +85,10 @@ public class ChannelActivity extends Activity {
 		// listView = (ListView) findViewById(R.id.channel_ListView);
 		listView = mPullRefreshListView.getRefreshableView();
 		listView.setAdapter(channelListViewAdapter);
-		
-		// 添加listView的头		
+
+		// 添加listView的头
 		listView.addHeaderView(headView);
-	
+
 	}
 
 	/**
@@ -194,43 +194,77 @@ public class ChannelActivity extends Activity {
 		return readedStr;
 	}
 
-	private class GetDataTask extends
-			AsyncTask<Void, Void, HashMap<String, Object>> {
+	/*
+	 * private class GetDataTask extends AsyncTask<Void, Void, HashMap<String,
+	 * Object>> {
+	 * 
+	 * @Override protected HashMap<String, Object> doInBackground(Void...
+	 * params) { // TODO Auto-generated method stub // Simulates a background
+	 * job. try { Thread.sleep(1000); } catch (InterruptedException e) { }
+	 * HashMap<String, Object> map = new HashMap<String, Object>(); try {
+	 * 
+	 * map = new HashMap<String, Object>(); map.put("user_pic",
+	 * R.drawable.annan); map.put("user_nickname", "下拉后更新后的名字");
+	 * map.put("release_time", "30秒前"); map.put("content", "下拉后更新后的内容");
+	 * map.put("remind_time", "下拉刷新后的时间"); map.put("fans_count", "1000");
+	 * map.put("record_count", "16754"); } catch (Exception e) { // TODO
+	 * Auto-generated catch block setTitle("map出错了"); }
+	 * 
+	 * return map; }
+	 */
 
-		@Override
-		protected HashMap<String, Object> doInBackground(Void... params) {
+	private class GetDataTask extends
+			AsyncTask<Void, Void, List<Map<String, Object>>>{
+
+		protected List<Map<String, Object>> doInBackground(Void... params) {
 			// TODO Auto-generated method stub
 			// Simulates a background job.
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 			}
-			HashMap<String, Object> map = new HashMap<String, Object>();
+			List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+			Map<String, Object> map = new HashMap<String, Object>();
+			InputStream inputStreamNew;
 			try {
-			
-				map = new HashMap<String, Object>();
-				map.put("user_pic", R.drawable.annan);
-				map.put("user_nickname", "下拉后更新后的名字");
-				map.put("release_time", "30秒前");
-				map.put("content", "下拉后更新后的内容");
-				map.put("remind_time", "下拉刷新后的时间");
-				map.put("fans_count", "1000");
-				map.put("record_count", "16754");
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				setTitle("map出错了");
-			}
+				//inputStreamNew = this.open("Channel_pic_new.txt");
+				inputStreamNew = getAssets().open("Channel_pic_new.txt");  
+				String json = readTextFile(inputStreamNew);
 
-			return map;
+				JSONArray array = new JSONArray(json);
+				for (int i = 0; i < array.length(); i++) {
+					map = new HashMap<String, Object>();
+					map.put("user_pic", array.getJSONObject(i)
+							.getString("user_pic"));
+					map.put("user_nickname",
+							array.getJSONObject(i).getString("user_nickname"));
+					map.put("release_time",
+							array.getJSONObject(i).getString("release_time"));
+					map.put("content", array.getJSONObject(i).getString("content"));
+					map.put("remind_time",
+							array.getJSONObject(i).getString("remind_time"));
+					map.put("fans_count",
+							array.getJSONObject(i).getString("fans_count"));
+					map.put("record_count",
+							array.getJSONObject(i).getString("record_count"));
+					list.add(map);
+				}
+				return list;
+
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+			return list;
 		}
+
 
 		// 这里是对刷新的响应，可以利用addFirst（）和addLast()函数将新加的内容加到LISTView中
 		// 根据AsyncTask的原理，onPostExecute里的result的值就是doInBackground()的返回值
 		@Override
-		protected void onPostExecute(HashMap<String, Object> result) {
+		protected void onPostExecute(List<Map<String, Object>> result) {
 			// 在头部增加新添内容
-			listItems.add(0, result);
-
+			listItems.addAll(0, result);		
 			// 通知程序数据集已经改变，如果不做通知，那么将不会刷新mListItems的集合
 			channelListViewAdapter.notifyDataSetChanged();
 			// Call onRefreshComplete when the list has been refreshed.
