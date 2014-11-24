@@ -53,5 +53,35 @@
             android:padding="15dp"
             android:src="@drawable/btn_schedule_details" />
     </RelativeLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp" >
 
+        <ImageView
+            android:layout_width="3dp"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="9dp"
+            android:paddingBottom="2dp"
+            android:paddingTop="2dp"
+            android:src="#646873" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            android:text="日程  ·  "
+            android:textColor="#646873" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="看看未来会发些什么"
+            android:textColor="#bec0c3"
+            android:textSize="12sp" />
+    </LinearLayout>
 </LinearLayout>
