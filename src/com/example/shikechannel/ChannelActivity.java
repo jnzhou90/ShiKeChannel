@@ -74,7 +74,7 @@ public class ChannelActivity extends Activity {
 			@Override
 			public void onLastItemVisible() {
 				// TODO Auto-generated method stub
-				Toast.makeText(ChannelActivity.this, "End of List!",
+				Toast.makeText(ChannelActivity.this, "已经到最后了",
 						Toast.LENGTH_SHORT).show();
 			}
 		});

@@ -5,43 +5,40 @@
     android:background="#eeeeee"
     android:orientation="vertical" >
 
-    <include
+     <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:background="#ffffff"
+        >
+      <include
         android:id="@+id/chaneltheme"
         layout="@layout/channel_theme" />
-
+     </RelativeLayout>
     
-
    
-
-  <!--   <ListView
-        android:id="@+id/channel_ListView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-    </ListView> -->
-       <ImageView 
+ 
+     <!--   <ImageView 
         android:layout_width="fill_parent"
         android:layout_height="1dp"
-        android:src="#e8e8e8"/>
-    <!--     The PullToRefreshListView replaces a standard ListView widget. -->
-<!--     <com.handmark.pulltorefresh.library.PullToRefreshListView
-        android:id="@+id/pull_refresh_listview"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:cacheColorHint="#00000000"
-        android:divider="#19000000"
-        android:dividerHeight="4dp"
-        android:fadingEdge="none"
-        android:fastScrollEnabled="false"
-        android:footerDividersEnabled="false"
-        android:headerDividersEnabled="false"
-        android:smoothScrollbar="true" /> -->
-        
-        
-     <com.handmark.pulltorefresh.library.PullToRefreshListView
+        android:src="#e8e8e8"/> -->
+     <!--     The PullToRefreshListView replaces a standard ListView widget. -->  
+    <com.handmark.pulltorefresh.library.PullToRefreshListView  
+        android:id="@+id/pull_refresh_listview"  
+        android:layout_width="fill_parent"  
+        android:layout_height="fill_parent"  
+        android:cacheColorHint="#00000000"  
+        android:divider="#19000000"  
+        android:dividerHeight="4dp"  
+        android:fadingEdge="none"  
+        android:fastScrollEnabled="false"  
+        android:footerDividersEnabled="false"  
+        android:headerDividersEnabled="false"  
+        android:smoothScrollbar="true" />     
+   <!--   <com.handmark.pulltorefresh.library.PullToRefreshListView
         android:id="@+id/pull_refresh_listview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:divider="@null"
 	    android:scrollbars="none">
-    </com.handmark.pulltorefresh.library.PullToRefreshListView>  
+    </com.handmark.pulltorefresh.library.PullToRefreshListView>   -->
 </LinearLayout>
