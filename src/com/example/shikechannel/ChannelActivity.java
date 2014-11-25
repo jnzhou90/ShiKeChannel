@@ -12,14 +12,8 @@ import java.util.Map;
 
 import org.json.JSONArray;
 
-import com.handmark.pulltorefresh.library.PullToRefreshBase;
-import com.handmark.pulltorefresh.library.PullToRefreshListView;
-import com.handmark.pulltorefresh.library.PullToRefreshBase.OnLastItemVisibleListener;
-import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
-
 import android.app.Activity;
 import android.content.Intent;
-import android.content.res.AssetManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.format.DateUtils;
@@ -29,6 +23,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
+import com.handmark.pulltorefresh.library.PullToRefreshBase.OnLastItemVisibleListener;
+import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
 public class ChannelActivity extends Activity {
 
@@ -46,24 +46,25 @@ public class ChannelActivity extends Activity {
 		// 应该怎么办，至于真正执行刷新的类GetDataTask（）
 
 		mPullRefreshListView = (PullToRefreshListView) findViewById(R.id.pull_refresh_listview);
-
+		//设置pull-to-refresh模式为Mode.Both
+		//mPullRefreshListView.setMode(Mode.BOTH);
 		// Set a listener to be invoked when the list should be refreshed.
+		//设置下拉刷新事件
 		mPullRefreshListView
 				.setOnRefreshListener(new OnRefreshListener<ListView>() {
 					@Override
-					public void onRefresh(
-							PullToRefreshBase<ListView> refreshView) {
-						String label = DateUtils.formatDateTime(
-								getApplicationContext(),
-								System.currentTimeMillis(),
-								DateUtils.FORMAT_SHOW_TIME
-										| DateUtils.FORMAT_SHOW_DATE
-										| DateUtils.FORMAT_ABBREV_ALL);
-
+					public void onRefresh(PullToRefreshBase<ListView> refreshView) {
+						
+						 /*if (refreshView.isHeaderShown()){
+							Toast.makeText(this,"下拉刷新",Toast.LENGTH_SHORT).show(); //下拉刷新 业务代码
+						  }else {
+							Toast.makeText(this,"上拉加载更多",Toast.LENGTH_SHORT).show();//上拉加载更多 业务代码
+						}*/
+						String label = DateUtils.formatDateTime(getApplicationContext(),System.currentTimeMillis(),
+						DateUtils.FORMAT_SHOW_TIME| DateUtils.FORMAT_SHOW_DATE| DateUtils.FORMAT_ABBREV_ALL);
 						// Update the LastUpdatedLabel
-						refreshView.getLoadingLayoutProxy()
-								.setLastUpdatedLabel(label);
-
+						refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
+                           
 						// Do work to refresh the list here.
 						new GetDataTask().execute();
 					}
